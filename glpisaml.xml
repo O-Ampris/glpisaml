@@ -5,8 +5,9 @@
 <logo>https://raw.githubusercontent.com/DonutsNL/glpisaml/refs/heads/main/donut.png</logo>
 <description>
     <short>
-        <en>Extends GLPI10 with SSO support using SAMLv2. This version is old and no longer maintained. You are strongly advised to update
-            to GLPI11.</en>
+        <en>Extends GLPI10 with SSO support using SAMLv2. The GLPI10 version of the plugin is no longer 
+            activerly maintained. You are therefor STRONGLY advised to update to GLPI11 and use the SAMLSSO
+            plugin instead.</en>
     </short>
     <long>
         <en>Glpisaml provides SSO (MFA) support using SAML. Glpisaml is written specifically for GLPI10 and is not
