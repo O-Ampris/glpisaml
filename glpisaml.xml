@@ -6,7 +6,7 @@
 <description>
     <short>
         <en>Extends GLPI10 with SSO support using SAMLv2. The GLPI10 version of the plugin is per 10-10-2025 no longer 
-            activerly maintained. You are therefor STRONGLY advised to update to GLPI11 and use the SAMLSSO
+            activerly maintained. You are therefore STRONGLY advised to update to GLPI11 and use the SAMLSSO
             plugin instead.</en>
     </short>
     <long>
