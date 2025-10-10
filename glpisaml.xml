@@ -5,7 +5,7 @@
 <logo>https://raw.githubusercontent.com/DonutsNL/glpisaml/refs/heads/main/donut.png</logo>
 <description>
     <short>
-        <en>Extends GLPI10 with SSO support using SAMLv2. The GLPI10 version of the plugin is no longer 
+        <en>Extends GLPI10 with SSO support using SAMLv2. The GLPI10 version of the plugin is per 10-10-2025 no longer 
             activerly maintained. You are therefor STRONGLY advised to update to GLPI11 and use the SAMLSSO
             plugin instead.</en>
     </short>
