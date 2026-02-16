@@ -91,6 +91,16 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" 
+                   id="attributemap-tab" 
+                   data-bs-toggle="tab" 
+                   href="#attributemap" 
+                   data-bs-target="#attributemap" 
+                   type="button" role="tab" 
+                   aria-controls="attributemap" 
+                   aria-selected="false"><b>{{ __("Attribute Mapping", plugin) }}</b></a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" 
                    id="logging-tab" 
                    data-bs-toggle="tab" 
                    href="#logging" 
@@ -245,6 +255,81 @@
                                {
                                   'add_field_html': error_helper,
                                }
+                            ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ################################################################################-->
+            <!-- Attribute Mapping -->
+            <div class="tab-pane fade" id="attributemap" role="tabpanel" aria-labelledby="attributemap-tab">
+                <div class="card-body">
+                    <p class="card-text">{{ __("Define the SAML attributes (claims) that map to GLPI user fields. Leave empty to use defaults.", plugin) }}</p>
+                    <div class="row g-2">
+                         <!-- saml_attr_username -->
+                         <div>
+                            {% set helper %}
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+                                data-bs-content="{{ inputfields.saml_attr_username.formexplain }}">?</span>
+                            {% endset %}
+                            {{ fields.textField(
+                                inputfields.saml_attr_username.field, 
+                                inputfields.saml_attr_username.value, 
+                                inputfields.saml_attr_username.formtitle ~ helper, 
+                                {}
+                            ) }}
+                        </div>
+                        <!-- saml_attr_email -->
+                         <div>
+                            {% set helper %}
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+                                data-bs-content="{{ inputfields.saml_attr_email.formexplain }}">?</span>
+                            {% endset %}
+                            {{ fields.textField(
+                                inputfields.saml_attr_email.field, 
+                                inputfields.saml_attr_email.value, 
+                                inputfields.saml_attr_email.formtitle ~ helper, 
+                                {}
+                            ) }}
+                        </div>
+                        <!-- saml_attr_firstname -->
+                         <div>
+                            {% set helper %}
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+                                data-bs-content="{{ inputfields.saml_attr_firstname.formexplain }}">?</span>
+                            {% endset %}
+                            {{ fields.textField(
+                                inputfields.saml_attr_firstname.field, 
+                                inputfields.saml_attr_firstname.value, 
+                                inputfields.saml_attr_firstname.formtitle ~ helper, 
+                                {}
+                            ) }}
+                        </div>
+                        <!-- saml_attr_lastname -->
+                         <div>
+                            {% set helper %}
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+                                data-bs-content="{{ inputfields.saml_attr_lastname.formexplain }}">?</span>
+                            {% endset %}
+                            {{ fields.textField(
+                                inputfields.saml_attr_lastname.field, 
+                                inputfields.saml_attr_lastname.value, 
+                                inputfields.saml_attr_lastname.formtitle ~ helper, 
+                                {}
+                            ) }}
+                        </div>
+                        <!-- saml_attr_realname -->
+                         <div>
+                            {% set helper %}
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+                                data-bs-content="{{ inputfields.saml_attr_realname.formexplain }}">?</span>
+                            {% endset %}
+                            {{ fields.textField(
+                                inputfields.saml_attr_realname.field, 
+                                inputfields.saml_attr_realname.value, 
+                                inputfields.saml_attr_realname.formtitle ~ helper, 
+                                {}
                             ) }}
                         </div>
                     </div>

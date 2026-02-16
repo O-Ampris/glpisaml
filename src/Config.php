@@ -43,7 +43,7 @@
  * ------------------------------------------------------------------------
  **/
 
- /**
+/**
  * Be careful with PSR4 Namespaces when extending common GLPI objects.
  * Only Characters are allowed in namespaces extending glpi Objects.
  * @see https://github.com/pluginsGLPI/example/issues/51
@@ -137,9 +137,11 @@ class Config extends CommonDBTM
      * @see CommonGLPI::getAdditionalMenuLinks()
      * @see https://codeberg.org/QuinQuies/glpisaml/issues/8
      **/
-    public static function getAdditionalMenuLinks() {
-        $links[__('Excluded paths', PLUGIN_NAME)] = PLUGIN_GLPISAML_WEBDIR.'/front/exclude.php';
-        $links[__('JIT import rules', PLUGIN_NAME)] = PLUGIN_GLPISAML_WEBDIR.'/front/rulesaml.php';
+    public static function getAdditionalMenuLinks()
+    {
+        $links[__('Excluded paths', PLUGIN_NAME)] = PLUGIN_GLPISAML_WEBDIR . '/front/exclude.php';
+        $links[__('JIT import rules', PLUGIN_NAME)] = PLUGIN_GLPISAML_WEBDIR . '/front/rulesaml.php';
+        // $links[__('Attribute Maps', PLUGIN_NAME)] = PLUGIN_GLPISAML_WEBDIR . '/front/attributemap.php';
         return $links;
     }
 
@@ -155,70 +157,71 @@ class Config extends CommonDBTM
     function rawSearchOptions(): array                          //NOSONAR - phpcs:ignore PSR1.Function.CamelCapsMethodName
     {
         $tab[] = [
-            'id'                 => '1',                        // By GLPI convention Name field should have ID 1.
-            'table'              => $this->getTable(),
-            'field'              => ConfigEntity::NAME,
-            'name'               => __('Name'),
-            'massiveaction'      => false,
-            'datatype'           => 'itemlink'
+            'id' => '1',                        // By GLPI convention Name field should have ID 1.
+            'table' => $this->getTable(),
+            'field' => ConfigEntity::NAME,
+            'name' => __('Name'),
+            'massiveaction' => false,
+            'datatype' => 'itemlink'
         ];
         $tab[] = [
-            'id'                 => '2',                        // By GLPI convention ID field should have ID 2.
-            'table'              => $this->getTable(),
-            'field'              => ConfigEntity::ID,
-            'name'               => __('ID'),
-            'massiveaction'      => false, // implicit field is id
-            'datatype'           => 'itemlink'
+            'id' => '2',                        // By GLPI convention ID field should have ID 2.
+            'table' => $this->getTable(),
+            'field' => ConfigEntity::ID,
+            'name' => __('ID'),
+            'massiveaction' => false, // implicit field is id
+            'datatype' => 'itemlink'
         ];
         $tab[] = [
-            'id'                 => '3',                        // If this was the glpi entities_id the id should by convention be ID `86`
-            'table'              => $this->getTable(),
-            'field'              => ConfigEntity::IDP_ENTITY_ID,
-            'name'               => __('Idp entity ID'),
-            'massiveaction'      => false,
-            'datatype'           => 'text'
+            'id' => '3',                        // If this was the glpi entities_id the id should by convention be ID `86`
+            'table' => $this->getTable(),
+            'field' => ConfigEntity::IDP_ENTITY_ID,
+            'name' => __('Idp entity ID'),
+            'massiveaction' => false,
+            'datatype' => 'text'
         ];
         $tab[] = [
-            'id'                 => '4',
-            'table'              => $this->getTable(),
-            'field'              => ConfigEntity::IS_ACTIVE,
-            'name'               => __('Is active'),
-            'massiveaction'      => false,
-            'datatype'           => 'bool'
+            'id' => '4',
+            'table' => $this->getTable(),
+            'field' => ConfigEntity::IS_ACTIVE,
+            'name' => __('Is active'),
+            'massiveaction' => false,
+            'datatype' => 'bool'
         ];
 
         // Lets not be as verbose as default GLPI objects when we do not need to.
         // continue tabId index where we left off.
         $index = 5;
-        foreach((new ConfigEntity())->getFields() as $field)
-        {
+        foreach ((new ConfigEntity())->getFields() as $field) {
             $field['list'] = false;
-           // skip the following fields
-            if($field[ConfigItem::FIELD] != ConfigEntity::ID            &&
-               $field[ConfigItem::FIELD] != ConfigEntity::NAME          &&
-               $field[ConfigItem::FIELD] != ConfigEntity::IDP_ENTITY_ID &&
-               $field[ConfigItem::FIELD] != ConfigEntity::IS_ACTIVE     &&
-               $field[ConfigItem::FIELD] != ConfigEntity::IS_DELETED    ){
+            // skip the following fields
+            if (
+                $field[ConfigItem::FIELD] != ConfigEntity::ID &&
+                $field[ConfigItem::FIELD] != ConfigEntity::NAME &&
+                $field[ConfigItem::FIELD] != ConfigEntity::IDP_ENTITY_ID &&
+                $field[ConfigItem::FIELD] != ConfigEntity::IS_ACTIVE &&
+                $field[ConfigItem::FIELD] != ConfigEntity::IS_DELETED
+            ) {
                 // Remap DB fields to Search dataTypes
-                if(strstr($field[ConfigItem::TYPE], 'varchar') ){
+                if (strstr($field[ConfigItem::TYPE], 'varchar')) {
                     $field[ConfigItem::TYPE] = 'string';
-                }elseif($field[ConfigItem::TYPE] == 'tinyint' ){
+                } elseif ($field[ConfigItem::TYPE] == 'tinyint') {
                     $field[ConfigItem::TYPE] = 'bool';
-                }elseif($field[ConfigItem::TYPE] == 'text' ){
+                } elseif ($field[ConfigItem::TYPE] == 'text') {
                     $field[ConfigItem::TYPE] = 'text';
-                }elseif($field[ConfigItem::TYPE] == 'timestamp' ){
+                } elseif ($field[ConfigItem::TYPE] == 'timestamp') {
                     $field[ConfigItem::TYPE] = 'date';
-                }elseif(strstr($field[ConfigItem::TYPE], 'int') ){
+                } elseif (strstr($field[ConfigItem::TYPE], 'int')) {
                     $field[ConfigItem::TYPE] = 'number';
                 }
                 // Build tab array
                 $tab[] = [
-                    'id'                 => $index,
-                    'table'              => Config::getTable(),
-                    'field'              => $field[ConfigItem::FIELD],
-                    'name'               => __(str_replace('_', ' ', ucfirst($field[ConfigItem::FIELD]))),
-                    'datatype'           => $field[ConfigItem::TYPE],
-                    'list'               => $field['list'],
+                    'id' => $index,
+                    'table' => Config::getTable(),
+                    'field' => $field[ConfigItem::FIELD],
+                    'name' => __(str_replace('_', ' ', ucfirst($field[ConfigItem::FIELD]))),
+                    'datatype' => $field[ConfigItem::TYPE],
+                    'list' => $field['list'],
                 ];
                 // Only increase index if we processed an item.
                 $index++;
@@ -237,7 +240,7 @@ class Config extends CommonDBTM
      */
     public static function getLoginButtons(int $length): array
     {
-        
+
         global $DB;         // Get global DB object to query the configTable.
         $tplvars = [];      // Define the array used to store the buttons (if any)
 
@@ -245,21 +248,22 @@ class Config extends CommonDBTM
         $length = (is_numeric($length)) ? $length : 255;
 
         // Iterate through the IDP config rows and generate the buttons for twig template.
-        foreach( $DB->request(['FROM' => Config::getTable(), 'WHERE' => ['is_deleted'  => 0]]) as $value)
-        {
+        foreach ($DB->request(['FROM' => Config::getTable(), 'WHERE' => ['is_deleted' => 0]]) as $value) {
             // Only populate buttons that are considered valid by ConfigEntity;
             $configEntity = new ConfigEntity($value[ConfigEntity::ID]);
-            if($configEntity->isValid() && $configEntity->isActive() && !$configEntity->getConfigDomain()){
-                $tplvars['buttons'][] = ['id'      => $value[ConfigEntity::ID],
-                                        'icon'    => $value[ConfigEntity::CONF_ICON],
-                                        'name'    => sprintf("%.".$length."s", $value[ConfigEntity::NAME]) ];
+            if ($configEntity->isValid() && $configEntity->isActive() && !$configEntity->getConfigDomain()) {
+                $tplvars['buttons'][] = [
+                    'id' => $value[ConfigEntity::ID],
+                    'icon' => $value[ConfigEntity::CONF_ICON],
+                    'name' => sprintf("%." . $length . "s", $value[ConfigEntity::NAME])
+                ];
             }
         }
         // Return the buttons (if any) else empty array.
         return $tplvars;
     }
 
-     /**
+    /**
      * Returns true if any of the configured IdPs is set to enforced.
      * this will hide the password and database fields from the login
      * page.
@@ -271,7 +275,7 @@ class Config extends CommonDBTM
     public static function getIsEnforced(): bool
     {
         global $DB;
-        return (count($DB->request(['FROM' => Config::getTable(), 'WHERE' => [ConfigEntity::ENFORCE_SSO  => 1]])) > 0) ? true : false;
+        return (count($DB->request(['FROM' => Config::getTable(), 'WHERE' => [ConfigEntity::ENFORCE_SSO => 1]])) > 0) ? true : false;
     }
 
     /**
@@ -284,11 +288,13 @@ class Config extends CommonDBTM
     public static function getIsOnlyOneConfig(): int
     {
         global $DB;
-        $res = $DB->request(['FROM' => Config::getTable(), 'WHERE' => [ConfigEntity::IS_DELETED  => 0, ConfigEntity::IS_ACTIVE => 1]]);
-        if (count($res) == 1       &&   // If we only get one row, return the ID
-            $row = $res->current() ){   // Assign the result to a var
+        $res = $DB->request(['FROM' => Config::getTable(), 'WHERE' => [ConfigEntity::IS_DELETED => 0, ConfigEntity::IS_ACTIVE => 1]]);
+        if (
+            count($res) == 1 &&   // If we only get one row, return the ID
+            $row = $res->current()
+        ) {   // Assign the result to a var
             $r = (is_numeric($row[ConfigEntity::ID])) ? $row[ConfigEntity::ID] : 0;
-        }else{
+        } else {
             $r = 0;                     // If we get no, or multiple, return 0;
         }
         return $r;
@@ -305,16 +311,18 @@ class Config extends CommonDBTM
     {
         global $DB;
         // Make sure we are dealing with a valid emailaddress.
-        if($upn = filter_var($fielda, FILTER_VALIDATE_EMAIL)){
+        if ($upn = filter_var($fielda, FILTER_VALIDATE_EMAIL)) {
             // Domain portion of address is at index [1];
             $domain = explode('@', $upn);
             // Query the database for the given domain;
-            $req = $DB->request(['SELECT'   =>  ConfigEntity::ID,
-                                 'FROM'     =>  Config::getTable(),
-                                 'WHERE'    =>  [ConfigEntity::CONF_DOMAIN => $domain[1]]]);
+            $req = $DB->request([
+                'SELECT' => ConfigEntity::ID,
+                'FROM' => Config::getTable(),
+                'WHERE' => [ConfigEntity::CONF_DOMAIN => $domain[1]]
+            ]);
             // If we got a result, cast it to int and return it
-            if($req->numrows() == 1){
-                foreach($req as $row){
+            if ($req->numrows() == 1) {
+                foreach ($req as $row) {
                     $id = (int) $row['id'];
                 }
                 return $id; // Return the correct idp id
@@ -332,10 +340,10 @@ class Config extends CommonDBTM
     public static function install(Migration $migration): void
     {
         global $DB;
-        $default_charset    = DBConnection::getDefaultCharset();
-        $default_collation  = DBConnection::getDefaultCollation();
-        $default_key_sign   = DBConnection::getDefaultPrimaryKeySignOption();
-        $table              = Config::getTable();
+        $default_charset = DBConnection::getDefaultCharset();
+        $default_collation = DBConnection::getDefaultCollation();
+        $default_key_sign = DBConnection::getDefaultPrimaryKeySignOption();
+        $table = Config::getTable();
 
         // Create the base table if it does not yet exist;
         // Do not update this table for later versions, use the migration class;
@@ -384,15 +392,34 @@ class Config extends CommonDBTM
 
         // Alter column width for conf_domain
         // https://codeberg.org/QuinQuies/glpisaml/issues/30
-        if($DB->tableExists($table)){
+        if ($DB->tableExists($table)) {
             $migration->displayMessage("Updating table layout for $table");
             $query = <<<SQL
                 ALTER TABLE $table
                 MODIFY COLUMN `conf_domain` varchar(255) null;
             SQL;
             $DB->doQuery($query) or die($DB->error());
-
             Session::addMessageAfterRedirect("🆗 Updated: $table layout.");
+        }
+
+        // Add attribute mapping columns
+        // https://github.com/DonutsNL/glpisaml/issues/28
+        if ($DB->tableExists($table)) {
+            $fieldsToCreate = [
+                'saml_attr_username' => 'varchar(255) NULL',
+                'saml_attr_email' => 'varchar(255) NULL',
+                'saml_attr_firstname' => 'varchar(255) NULL',
+                'saml_attr_lastname' => 'varchar(255) NULL',
+                'saml_attr_realname' => 'varchar(255) NULL'
+            ];
+
+            foreach ($fieldsToCreate as $field => $type) {
+                if (!$DB->fieldExists($table, $field, false)) {
+                    $query = "ALTER TABLE `$table` ADD `$field` $type";
+                    $DB->doQuery($query) or die($DB->error());
+                    Session::addMessageAfterRedirect("🆗 Added column: $field to $table.");
+                }
+            }
         }
     }
 
